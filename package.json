@@ -1,11 +1,10 @@
 {
-  "name": "rollup-starter-lib",
+  "name": "ranger",
   "version": "1.0.0",
-  "main": "dist/how-long-till-lunch.cjs.js",
-  "module": "dist/how-long-till-lunch.esm.js",
-  "browser": "dist/how-long-till-lunch.umd.js",
+  "main": "dist/ranger.cjs.js",
+  "module": "dist/ranger.esm.js",
+  "browser": "dist/ranger.umd.js",
   "dependencies": {
-    "ms": "^2.0.0"
   },
   "devDependencies": {
     "rollup": "^0.58.0",
