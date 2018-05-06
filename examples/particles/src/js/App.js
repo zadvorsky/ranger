@@ -6,10 +6,12 @@ import RandomPosition from "./examples/RandomPosition";
 import MapPosition from "./examples/MapPosition";
 import Divide from "./examples/Divide";
 import Color from "./examples/Color";
+import ParticleTiming from "./examples/ParticleTiming";
 
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Particle Timing': ParticleTiming,
     'Color': Color,
     'Divide': Divide,
     'Map Position': MapPosition,
