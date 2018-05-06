@@ -13,7 +13,7 @@ const ranger = {
   },
   
   getValue(x, min, max, curve = ranger.LINEAR) {
-    return min + curve(x) * length(min, max);
+    return min + curve(x) * ranger.length(min, max);
   },
 
   // mapping

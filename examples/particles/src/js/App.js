@@ -3,17 +3,18 @@ import guify from './lib/guify.min';
 import ranger, { Range } from '../../../../dist/ranger.esm';
 import BaseApp from './core/BaseApp';
 import RandomPosition from "./examples/RandomPosition";
+import MapPosition from "./examples/MapPosition";
 
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Map Position': MapPosition,
     'Random Position': RandomPosition
   };
 
   static exampleKeys = Object.keys(App.exampleMap);
 
   state = {
-    curve: ranger.LINEAR,
     exampleKey: App.exampleKeys[0]
   };
 

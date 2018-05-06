@@ -98,7 +98,7 @@ export default class Range {
   }
 
   getPosition(x, curve = this.curve) {
-    return ranger.getPosition(this.min, this.max, curve)
+    return ranger.getPosition(x, this.min, this.max, curve)
   }
 
   getValue(x, curve = this.curve) {
@@ -121,7 +121,7 @@ export default class Range {
     return ranger.randomInt(this.min, this.max, curve);
   }
 
-  spread(steps, curve = this.curve) {
+  divide(steps, curve = this.curve) {
     const values = [];
 
     for (let i = 0; i <= steps; i++) {
