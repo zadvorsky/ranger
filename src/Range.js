@@ -124,8 +124,8 @@ export default class Range {
   divide(steps, curve = this.curve) {
     const values = [];
 
-    for (let i = 0; i <= steps; i++) {
-      values[i] = this.getValue(i / steps, curve);
+    for (let i = 0; i < steps; i++) {
+      values[i] = this.getValue(i / (steps - 1), curve);
     }
 
     return values;

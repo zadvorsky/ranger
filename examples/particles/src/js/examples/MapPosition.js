@@ -22,7 +22,7 @@ export default class MapPosition extends BaseExample {
     const columns = 100;
     const rows = 100;
 
-    const columnRange = new Range(0, columns - 1, Power2.easeInOut.getRatio);
+    const columnRange = new Range(0, columns - 1);
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {

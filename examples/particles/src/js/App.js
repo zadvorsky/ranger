@@ -4,10 +4,12 @@ import ranger, { Range } from '../../../../dist/ranger.esm';
 import BaseApp from './core/BaseApp';
 import RandomPosition from "./examples/RandomPosition";
 import MapPosition from "./examples/MapPosition";
+import Divide from "./examples/Divide";
 
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Divide': Divide,
     'Map Position': MapPosition,
     'Random Position': RandomPosition
   };
