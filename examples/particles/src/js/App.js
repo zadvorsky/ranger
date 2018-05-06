@@ -5,10 +5,12 @@ import BaseApp from './core/BaseApp';
 import RandomPosition from "./examples/RandomPosition";
 import MapPosition from "./examples/MapPosition";
 import Divide from "./examples/Divide";
+import Color from "./examples/Color";
 
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Color': Color,
     'Divide': Divide,
     'Map Position': MapPosition,
     'Random Position': RandomPosition

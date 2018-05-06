@@ -33,23 +33,5 @@ export default class Divide extends BaseExample {
         this.add(circle);
       }
     }
-
-
-    // const columns = 100;
-    // const rows = 100;
-    //
-    // const columnRange = new Range(0, columns - 1);
-    //
-    // for (let i = 0; i < rows; i++) {
-    //   for (let j = 0; j < columns; j++) {
-    //     const circle = circleFactory.create({
-    //       x: xRange.mapFloats(i, 0, rows - 1),
-    //       y: yRange.map(j, columnRange),
-    //       radius: 1
-    //     });
-    //
-    //     this.add(circle);
-    //   }
-    // }
   }
 }
