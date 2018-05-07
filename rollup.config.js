@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 export default [
 	{
-		input: 'src/main.js',
+		input: 'src/main.umd.js',
 		output: {
 			name: 'ranger',
 			file: pkg.browser,
@@ -16,7 +16,7 @@ export default [
 		]
 	},
 	{
-		input: 'src/main.js',
+		input: 'src/main.es.js',
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }

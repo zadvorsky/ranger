@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranger.js examples</title>
+  <style>
+    body {
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+<script src="../../dist/ranger.umd.js"></script>
+<script>
+  console.log('loaded', ranger);
+
+  var range = new ranger.Range(20, 40);
+
+  console.log('range', range);
+
+  console.log('ranger.random', ranger.random(20, 40));
+</script>
+<div>See console for amazing test output.</div>
+</body>
+</html>
