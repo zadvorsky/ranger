@@ -38,6 +38,24 @@ export default class BaseExample extends Node {
     this.options.push(gui);
   }
 
+  createRangeInput(key, label, min, max, step) {
+    const gui = this.gui.Register({
+      type: 'range',
+      label,
+      min,
+      max,
+      step,
+      object: this.state,
+      property: key,
+      onChange: value => {
+        this.state[key] = value;
+        this.update();
+      }
+    });
+
+    this.options.push(gui);
+  }
+
   update() {
     this.removeAll();
     this.createGraphics();
