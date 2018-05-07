@@ -11,9 +11,9 @@ import ParticleTiming from "./examples/ParticleTiming";
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Divide': Divide,
     'Particle Timing': ParticleTiming,
     'Color': Color,
-    'Divide': Divide,
     'Map Position': MapPosition,
     'Random Position': RandomPosition
   };

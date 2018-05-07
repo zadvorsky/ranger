@@ -143,7 +143,7 @@ export default class Range {
     return ranger.contains(x, this.min, this.max);
   }
 
-  contsinsRange(range) {
+  containsRange(range) {
     return ranger.containsRange(range, this.min, this.max);
   }
 }

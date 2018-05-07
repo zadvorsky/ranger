@@ -54,7 +54,8 @@ export default class ParticleTiming extends BaseExample {
   destroy() {
     super.destroy();
 
-    this.tweens.forEach(t => t.kill());
-    this.tweens.length = 0;
+    if (this.animation) {
+      this.animation.kill();
+    }
   }
 }
