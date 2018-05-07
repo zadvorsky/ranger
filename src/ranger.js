@@ -1,3 +1,6 @@
+/**
+ * @namespace
+ */
 const ranger = {
 
   /**

@@ -4,9 +4,10 @@
   "main": "dist/ranger.cjs.js",
   "module": "dist/ranger.esm.js",
   "browser": "dist/ranger.umd.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
     "rollup": "^0.58.0",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.0.0"
@@ -15,7 +16,8 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "node test/test.js",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "files": [
     "dist"

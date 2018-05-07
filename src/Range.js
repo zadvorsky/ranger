@@ -1,6 +1,13 @@
 import ranger from './ranger';
 
-export default class Range {
+/**
+ * Creates a new Range instance with a min, max, and curve for repeated use.
+ * No validation is performed to check if min is less or equal to max.
+ *
+ * @class
+ * @constructor
+ */
+class Range {
   /**
    * Creates a new Range instance with a min, max, and curve for repeated use.
    * No validation is performed to check if min is less or equal to max.
@@ -8,8 +15,6 @@ export default class Range {
    * @param {number} min - Min value for this range.
    * @param {number} max - Max value for this range.
    * @param {function} [curve] - The curve function to apply by default.
-   *
-   * @constructor
    */
   constructor(min = 0, max = 0, curve = ranger.LINEAR) {
     /**
@@ -365,3 +370,5 @@ export default class Range {
     return ranger.containsRange(range, this);
   }
 }
+
+export default Range;
