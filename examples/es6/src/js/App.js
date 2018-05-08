@@ -12,12 +12,12 @@ import Wrap from "./examples/Wrap";
 export default class App extends BaseApp {
 
   static exampleMap = {
-    'Wrap': Wrap,
+    'Random Position': RandomPosition,
+    'Map Position': MapPosition,
     'Divide': Divide,
     'Particle Timing': ParticleTiming,
     'Color': Color,
-    'Map Position': MapPosition,
-    'Random Position': RandomPosition
+    'Wrap': Wrap
   };
 
   static exampleKeys = Object.keys(App.exampleMap);

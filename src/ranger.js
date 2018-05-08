@@ -67,7 +67,7 @@ const ranger = {
   // mapping
 
   /**
-   * Map a value from one range to a value from another range at the same position.
+   * Maps a value from one range to a value from another range at the same position.
    * The source range is sampled linearly.
    * None of the values are clamped.
    *

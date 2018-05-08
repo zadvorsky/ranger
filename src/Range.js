@@ -296,8 +296,8 @@ class Range {
 
     const values = [];
 
-    for (let i = 0; i <= count; i++) {
-      values[i] = this.getValue(i / count, curve);
+    for (let i = 0; i < count; i++) {
+      values[i] = this.getValue(i / (count - 1), curve);
     }
 
     return values;
@@ -321,8 +321,6 @@ class Range {
     for (let i = 0; i < count; i++) {
       const min = this.getValue(i / count);
       const max = this.getValue((i + 1) / count);
-
-      console.log(this.min, this.max, min, max, i);
 
       ranges[i] = new Range(min, max, this.curve);
     }

@@ -27,7 +27,7 @@ Easing functions are a good example of this, but there are many [others](https:/
 
 Curves can be applied to `random`, `randomInt`, `map`, `divide`, among others.
 
-Being able to apply easing any value in your application is a powerful way to give yourself more control over the output.
+Being able to apply easing any value in your application is a powerful way to give yourself more control over the visual output.
 
 Ranger does not ship with any curves itself, but there are plenty of sources for them.
 * [https://gist.github.com/gre/1650294](https://gist.github.com/gre/1650294)
@@ -45,16 +45,25 @@ For the browser version, include `dist/ranger.umd.js` in a script tag.
 For NPM usage, run `npm install --save ranger.js`.
 
     import ranger, { Range } from 'ranger';
-        
+    
+    // creates a range {min: 0, max: 100}    
     const range1 = new Range(0, 100);
         
-    range1.random(); // returns a float between 0 and 100
+    range1.random(); // returns a float between range.min and range.max
     range1.contains(101) // returns false
+    
+    // Range has chainable transformation methods
+    // this line creates a range of {min: -10, max: 10} 
+    const range2 = range.clone().set(-1, 1).scale(10);
+    
+    // maps a value from range 2 to range 1    
+    range2.map(-5, range1); // returns 25     
         
-    const range2 = range.clone().set(-10, 10);
-        
-    range1.map(-5, range2); // returns 25     
+    // static method
     ranger.map(-5, range2, range1) // same as above
+        
+    // crates a range with expoEaseOut as the default curve.  
+    const range3 = new Range(0, 100, expoEaseOut);
         
 
 ## Documentation
