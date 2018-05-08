@@ -4,6 +4,7 @@
   "description": "A small, standalone JavaScript library for working with ranges of numbers.",
   "version": "1.0.1",
   "main": "dist/ranger.cjs.js",
+  "jsnext:main": "dist/ranger.esm.js",
   "module": "dist/ranger.esm.js",
   "browser": "dist/ranger.umd.js",
   "dependencies": {},
