@@ -2,7 +2,7 @@
   "name": "@zadvorsky/ranger",
   "repository": "https://github.com/zadvorsky/ranger",
   "description": "A small, standalone JavaScript library for working with ranges of numbers.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/ranger.cjs.js",
   "module": "dist/ranger.esm.js",
   "browser": "dist/ranger.umd.js",
