@@ -1,5 +1,5 @@
 {
-  "name": "ranger-js",
+  "name": "@zadvorsky/ranger",
   "repository": "https://github.com/zadvorsky/ranger",
   "description": "A small, standalone JavaScript library for working with ranges of numbers.",
   "version": "1.0.0",
