@@ -27,8 +27,9 @@ export default class BaseExample extends Node {
         if (value === 'none') {
           this.state[key] = ranger.LINEAR;
         } else {
+          // GSAP easing functions are stored as 'Name.function'
           const parts = value.split('.');
-          this.state[key] = window[parts[0]][parts[1]].getRatio;
+          this.state[key] = x => window[parts[0]][parts[1]].getRatio(x);
         }
 
         this.updateGraphics();
