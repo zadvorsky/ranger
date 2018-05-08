@@ -68,9 +68,9 @@ For NPM usage, run `npm install --save ranger.js`.
 
 ## Documentation
 
-Documentation can be found [here]().
+Documentation can be found [here](http://ranger-docs.surge.sh/).
 
-Examples can be found [here]().
+Examples can be found [here](http://ranger-examples.surge.sh/).
 
 ## Build
 

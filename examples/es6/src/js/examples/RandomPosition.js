@@ -4,7 +4,7 @@ import BaseExample from "./BaseExample";
 
 export default class RandomPosition extends BaseExample {
 
-  description = 'Circle positions and radii are randomized using ranges. Change the range to see how it affects the distribution.';
+  description = 'Circle positions and radii are randomized using ranges. Change the curve to see how it affects the distribution.';
 
   state = {
     xCurve: undefined,
