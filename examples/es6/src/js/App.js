@@ -7,10 +7,12 @@ import MapPosition from "./examples/MapPosition";
 import Divide from "./examples/Divide";
 import Color from "./examples/Color";
 import ParticleTiming from "./examples/ParticleTiming";
+import Wrap from "./examples/Wrap";
 
 export default class App extends BaseApp {
 
   static exampleMap = {
+    'Wrap': Wrap,
     'Divide': Divide,
     'Particle Timing': ParticleTiming,
     'Color': Color,
@@ -32,7 +34,7 @@ export default class App extends BaseApp {
     this.elDiscription = document.querySelector('#description');
 
     this.initGUI();
-    this.renderExample();
+    this.setExample();
   }
 
   initGUI() {
@@ -52,7 +54,7 @@ export default class App extends BaseApp {
         label: key,
         action: () => {
           this.state.exampleKey = key;
-          this.renderExample();
+          this.setExample();
         }
       })
     });
@@ -65,7 +67,13 @@ export default class App extends BaseApp {
     // options inserted by the example itself
   }
 
-  renderExample() {
+  update() {
+    if (this.example) {
+      this.example.update();
+    }
+  }
+
+  setExample() {
     if (this.example) {
       this.example.destroy();
     }

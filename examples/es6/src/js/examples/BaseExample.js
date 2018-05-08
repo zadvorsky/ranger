@@ -31,7 +31,7 @@ export default class BaseExample extends Node {
           this.state[key] = window[parts[0]][parts[1]].getRatio;
         }
 
-        this.update();
+        this.updateGraphics();
       }
     });
 
@@ -49,19 +49,23 @@ export default class BaseExample extends Node {
       property: key,
       onChange: value => {
         this.state[key] = value;
-        this.update();
+        this.updateGraphics();
       }
     });
 
     this.options.push(gui);
   }
 
-  update() {
+  updateGraphics() {
     this.removeAll();
     this.createGraphics();
   }
 
   createGraphics() {}
+
+  update() {
+
+  }
 
   destroy() {
     this.options.forEach(option => {

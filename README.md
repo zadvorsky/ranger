@@ -1,8 +1,8 @@
 # Ranger.js
 
-Ranger.js is a small library for working with ranges of numbers in Javascript.
+Ranger.js is a small, standalone library for working with ranges of numbers in Javascript.
 
-Ranger provides all the utility methods you'd expect, like clamp, wrap, map, and random.
+Ranger provides all the utility methods you'd expect, including clamp, wrap, map, and random.
 These methods are available statically, as well as through a `Range` object that can be instantiated for repeated use.
 
 Ranger's main feature is the ability to provide a 'curve' function to certain methods, which will affect how numbers are distributed.
@@ -23,16 +23,16 @@ Ranger's main feature is the ability to provide a 'curve' function to certain me
     ranger.random(20, 40, expoEaseOut);
 
 The curve can be any function that takes a float between 0.0 and 1.0, and returns a transformed float.
-Easing functions are a good example of this, but there are many others.
+Easing functions are a good example of this, but there are many [others](https://pbs.twimg.com/media/DRJY_inVoAA5t7A.jpg:large).
 
 Curves can be applied to `random`, `randomInt`, `map`, `divide`, among others.
 
 Being able to apply easing any value in your application is a powerful way to give yourself more control over the output.
 
 Ranger does not ship with any curves itself, but there are plenty of sources for them.
-//
-//
-//
+* [https://gist.github.com/gre/1650294](https://gist.github.com/gre/1650294)
+* [https://github.com/danro/easing-js](https://github.com/danro/easing-js)
+* [https://github.com/component/ease](https://github.com/component/ease)
 
 If you are using GSAP, you can access its easing functions directly like this:
 
@@ -40,13 +40,49 @@ If you are using GSAP, you can access its easing functions directly like this:
 
 ## Usage
 
+For the browser version, include `dist/ranger.umd.js` in a script tag.
+
+For NPM usage, run `npm install --save ranger.js`.
+
+    import ranger, { Range } from 'ranger';
+        
+    const range1 = new Range(0, 100);
+        
+    range1.random(); // returns a float between 0 and 100
+    range1.contains(101) // returns false
+        
+    const range2 = range.clone().set(-10, 10);
+        
+    range1.map(-5, range2); // returns 25     
+    ranger.map(-5, range2, range1) // same as above
+        
+
 ## Documentation
 
+Documentation can be found [here]().
 
+Examples can be found [here]().
 
 ## Build
 
+To build locally, run
+
+    npm install
+    npm run dev
+
+This project uses Rollup to bundle the library.
+
 ## Build examples
+
+To build the es6 example application, run
+
+    cd examples/es6
+    npm install
+    npm run start
+    
+The example application uses WebPack 4. It has a bunch of boilerplate code, and uses GSAP for animations.
+
+The actual example code can be found in `examples/es6/src/js/examples`.
 
 ## License
 
