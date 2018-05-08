@@ -1,13 +1,13 @@
-# Ranger.js
+# Ranger
 
 Ranger.js is a small, standalone library for working with ranges of numbers in Javascript.
 
-Ranger provides all the utility methods you'd expect, including clamp, wrap, map, and random.
+Ranger provides all the utility methods you'd expect, including `clamp`, `wrap`, `map`, and `random`.
 These methods are available statically, as well as through a `Range` object that can be instantiated for repeated use.
 
 Ranger's main feature is the ability to provide a 'curve' function to certain methods, which will affect how numbers are distributed.
 
-    import ranger from 'ranger';
+    import ranger from '@zadvorsky/ranger';
         
     // this will return a float between 20 and 40
     // when called repeatedly, the distribution of numbers will be approximately linear. 
@@ -42,9 +42,9 @@ If you are using GSAP, you can access its easing functions directly like this:
 
 For the browser version, include `dist/ranger.umd.js` in a script tag.
 
-For NPM usage, run `npm install --save ranger.js`.
+For usage with NPM, run `npm install --save @zadvorsky/ranger`.
 
-    import ranger, { Range } from 'ranger';
+    import ranger, { Range } from '@zadvorsky/ranger';
     
     // creates a range {min: 0, max: 100}    
     const range1 = new Range(0, 100);
