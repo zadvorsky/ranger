@@ -251,7 +251,7 @@ class Range {
   }
 
   /**
-   * @see ranger.mapFloats
+   * @see ranger.mapFloat
    *
    * @param {number} x - The value to map. Should be contained in the source range.
    * @param {number} min - Min value for the source range.
@@ -259,7 +259,7 @@ class Range {
    * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
    * @returns {number}
    */
-  mapFloats(x, min, max, curve = this.curve) {
+  mapFloat(x, min, max, curve = this.curve) {
     return ranger.mapFloat(x, min, max, this.min, this.max, curve);
   }
 

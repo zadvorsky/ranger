@@ -30,8 +30,8 @@ export default class MapPosition extends BaseExample {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
         const circle = circleFactory.create({
-          // mapFloats maps a value from this range to [min, max]
-          x: xRange.mapFloats(i, 0, rows - 1),
+          // mapFloat maps a value from this range to [min, max]
+          x: xRange.mapFloat(i, 0, rows - 1),
           // map maps a value from this range to another range instance
           y: yRange.map(j, columnRange),
           radius: 1

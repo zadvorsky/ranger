@@ -63,8 +63,8 @@ range1.set(0, 100);
 
 assert.equal(range1.map(0.1, new Range(0, 1)), 10);
 assert.equal(range1.map(0.9, new Range(0, 1)), 90);
-assert.equal(range1.mapFloats(0.5, 0, 1), 50);
-assert.equal(range1.mapFloats(32, 0, 64), 50);
+assert.equal(range1.mapFloat(0.5, 0, 1), 50);
+assert.equal(range1.mapFloat(32, 0, 64), 50);
 
 range1.set(-10, 10);
 
