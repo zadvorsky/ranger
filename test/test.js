@@ -1,8 +1,10 @@
 const assert = require('assert');
-const ranger = require('..');
-const { Range } = require('..');
+const ranger = require('../');
+const { Range } = require('../');
 
 console.log('TESTING RANGER');
+
+assert.equal(ranger.length(10, 20), 10);
 
 const range1 = new Range(0, 1);
 

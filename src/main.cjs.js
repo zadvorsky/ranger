@@ -1,5 +1,6 @@
 import ranger from './ranger';
 import Range from './Range';
 
-export { Range };
-export default ranger;
+ranger.Range = Range;
+
+module.exports = ranger;

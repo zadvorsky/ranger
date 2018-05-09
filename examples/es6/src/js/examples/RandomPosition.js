@@ -1,5 +1,5 @@
 import circleFactory from '../factories/circleFactory';
-import ranger, { Range } from "../../../../../dist/ranger.esm";
+import ranger, { Range } from "../../../../../";
 import BaseExample from "./BaseExample";
 
 export default class RandomPosition extends BaseExample {

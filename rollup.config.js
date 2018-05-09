@@ -16,10 +16,20 @@ export default [
 		]
 	},
 	{
+    input: 'src/main.cjs.js',
+		output: {
+			file: pkg.main,
+			format: 'cjs'
+		}
+  },
+	{
 		input: 'src/main.es.js',
 		output: [
-			{ file: pkg.main, format: 'cjs', exports: 'named' },
-			{ file: pkg.module, format: 'es', exports: 'named' }
+			{
+				file: pkg.module,
+				format: 'es',
+				exports: 'named'
+			}
 		]
 	}
 ];
