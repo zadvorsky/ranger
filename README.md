@@ -42,11 +42,22 @@ ranger.random(20, 40, Expo.easeOut.getRatio);
 ```
 ## Usage
 
-For the browser version, include `dist/ranger.umd.js` in a script tag.
+For the browser version, include `dist/ranger.umd.js` in a script tag. A global `ranger` namespace will then be available.
+``` js
+var value1 = ranger.random(20, 40);
+
+var range = new ranger.Range(20, 40);
+var value2 = range.random();
+```
 
 For usage with NPM, run `npm install --save @zadvorsky/ranger`.
 ``` js
+// with ES6 imports
 import ranger, { Range } from '@zadvorsky/ranger';
+
+// or CommonJS
+const ranger = require('@zadvorsky/ranger');
+const { Range } = require('@zadvorsky/ranger');
 
 // creates a range {min: 0, max: 100}    
 const range1 = new Range(0, 100);
