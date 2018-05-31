@@ -7,7 +7,7 @@
   /**
    * @namespace
    */
-  const ranger = {
+  var ranger = {
 
     /**
      * Default curve, which is just a pass-through function.
@@ -15,7 +15,9 @@
      * @param {number} x
      * @returns {number}
      */
-    LINEAR: x => x,
+    LINEAR: function LINEAR(x) {
+      return x;
+    },
 
     // measurements
 
@@ -27,9 +29,10 @@
      * @param {number} max - Max value of the range.
      * @returns {number} Length of the range.
      */
-    length(min, max) {
+    length: function length(min, max) {
       return max - min;
     },
+
 
     /**
      * A range is valid if max >= min.
@@ -38,9 +41,10 @@
      * @param {number} max - Max value of the range.
      * @returns {boolean}
      */
-    isValid(min, max) {
+    isValid: function isValid(min, max) {
       return max >= min;
     },
+
 
     /**
      * Returns the position of a value in the range, as a float 0.0 and 1.0.
@@ -52,9 +56,12 @@
      * @param {function} [curve] - The curve function to apply.
      * @returns {number} - Position of the supplied value.
      */
-    getPosition(x, min, max, curve = ranger.LINEAR) {
+    getPosition: function getPosition(x, min, max) {
+      var curve = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ranger.LINEAR;
+
       return curve((x - min) / ranger.length(min, max));
     },
+
 
     /**
      * Returns the value at a given position in the rage.
@@ -66,9 +73,12 @@
      * @param {function} [curve] - The curve function to apply.
      * @returns {*} - Value at the supplied position.
      */
-    getValue(x, min, max, curve = ranger.LINEAR) {
+    getValue: function getValue(x, min, max) {
+      var curve = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ranger.LINEAR;
+
       return min + curve(x) * ranger.length(min, max);
     },
+
 
     // mapping
 
@@ -83,9 +93,12 @@
      * @param {function} [curve] - The curve function to apply to the targetRange.
      * @returns {Number} - The mapped value, between targetRange.min and targetRange.max.
      */
-    map(x, sourceRange, targetRange, curve = ranger.LINEAR) {
+    map: function map(x, sourceRange, targetRange) {
+      var curve = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ranger.LINEAR;
+
       return ranger.getValue(sourceRange.getPosition(x, ranger.LINEAR), targetRange.min, targetRange.max, curve);
     },
+
 
     /**
      * Same as map, but the source and target ranges should be provided as numbers.
@@ -100,9 +113,12 @@
      * @param {function} [curve] - The curve function to apply to the target range.
      * @returns {number} - The mapped value, between targetMin and targetMax.
      */
-    mapFloat(x, sourceMin, sourceMax, targetMin, targetMax, curve = ranger.LINEAR) {
+    mapFloat: function mapFloat(x, sourceMin, sourceMax, targetMin, targetMax) {
+      var curve = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : ranger.LINEAR;
+
       return ranger.getValue(ranger.getPosition(x, sourceMin, sourceMax, ranger.LINEAR), targetMin, targetMax, curve);
     },
+
 
     // random
 
@@ -114,9 +130,12 @@
      * @param {function} [curve] - The curve function to apply.
      * @returns {number}
      */
-    random(min, max, curve = ranger.LINEAR) {
+    random: function random(min, max) {
+      var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ranger.LINEAR;
+
       return min + curve(Math.random()) * ranger.length(min, max);
     },
+
 
     /**
      * Returns a random int between min and max.
@@ -127,9 +146,12 @@
      * @param {function} [curve] - The curve function to apply.
      * @returns {number}
      */
-    randomInt(min, max, curve = ranger.LINEAR) {
+    randomInt: function randomInt(min, max) {
+      var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ranger.LINEAR;
+
       return ranger.random(min, max, curve) | 0;
     },
+
 
     // common operations
 
@@ -143,9 +165,10 @@
      * @param {number} max - Max value of the range.
      * @returns {number} - The clamped value.
      */
-    clamp(x, min, max) {
+    clamp: function clamp(x, min, max) {
       return x < min ? min : x > max ? max : x;
     },
+
 
     /**
      * Wraps a value around the range.
@@ -156,11 +179,12 @@
      * @param {number} max - Max value of the range.
      * @returns {number} - The wrapped value.
      */
-    wrap(x, min, max) {
-      const l = ranger.length(min, max);
+    wrap: function wrap(x, min, max) {
+      var l = ranger.length(min, max);
 
-      return (((x - min) % l) + l) % l + min;
+      return ((x - min) % l + l) % l + min;
     },
+
 
     /**
      * Checks if a value is inside the range.
@@ -170,9 +194,10 @@
      * @param {number} max - Max value of the range.
      * @returns {boolean}
      */
-    contains(x, min, max) {
+    contains: function contains(x, min, max) {
       return x >= min && x <= max;
     },
+
 
     /**
      * Checks if the source range is contained in the target range.
@@ -181,10 +206,14 @@
      * @param {Range} targetRange - The range the sourceRange will be compared to.
      * @returns {boolean}
      */
-    containsRange(sourceRange, targetRange) {
+    containsRange: function containsRange(sourceRange, targetRange) {
       return ranger.contains(sourceRange.min, targetRange.min, targetRange.max) && ranger.contains(sourceRange.max, targetRange.min, targetRange.max);
-    },
+    }
   };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   /**
    * Creates a new Range instance with a min, max, and curve for repeated use.
@@ -193,7 +222,8 @@
    * @class
    * @constructor
    */
-  class Range {
+
+  var Range = function () {
     /**
      * Creates a new Range instance with a min, max, and curve for repeated use.
      * No validation is performed to check if min is less or equal to max.
@@ -202,7 +232,13 @@
      * @param {number} max - Max value for this range.
      * @param {function} [curve] - The curve function to apply by default.
      */
-    constructor(min = 0, max = 0, curve = ranger.LINEAR) {
+    function Range() {
+      var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ranger.LINEAR;
+
+      _classCallCheck(this, Range);
+
       /**
        * Min value for this range
        * @type {number}
@@ -231,329 +267,434 @@
      * @param {function} [curve] - The curve function to apply by default.
      * @returns {Range}
      */
-    fromSizeAndCenter(size, center = 0, curve = this.curve) {
-      this.min = size * -0.5 + center;
-      this.max = size * 0.5 + center;
-      this.curve = curve;
 
-      return this;
-    }
 
-    /**
-     * Sets the min, max, and curve for this range.
-     *
-     * @param {number} min - Min value for this range.
-     * @param {number} max - Max value for this range.
-     * @param {function} [curve] - The curve function to apply by default.
-     * @returns {Range}
-     */
-    set(min = this.min, max = this.max, curve = this.curve) {
-      this.min = min;
-      this.max = max;
-      this.curve = curve;
+    _createClass(Range, [{
+      key: 'fromSizeAndCenter',
+      value: function fromSizeAndCenter(size) {
+        var center = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.curve;
 
-      return this;
-    }
+        this.min = size * -0.5 + center;
+        this.max = size * 0.5 + center;
+        this.curve = curve;
 
-    /**
-     * Sets the min value for this range. This method mostly exists for chaining.
-     *
-     * @param {number} min - Min value for this range.
-     * @returns {Range}
-     */
-    setMin(min) {
-      this.min = min;
-
-      return this;
-    }
-
-    /**
-     * Sets the max value for this range. This method mostly exists for chaining.
-     *
-     * @param {number} max - Max value for this range.
-     * @returns {Range}
-     */
-    setMax(max) {
-      this.max = max;
-
-      return this;
-    }
-
-    /**
-     * Sets the default curve for this range. This method mostly exists for chaining.
-     *
-     * @param {function} curve - The curve function to apply by default.
-     * @returns {Range}
-     */
-    setCurve(curve) {
-      this.curve = curve;
-
-      return this;
-    }
-
-    /**
-     * Multiplies this range's min and max with the given scalar.
-     * Values below 1.0 will make the range smaller.
-     * Values over 1.0 will make it bigger.
-     *
-     * @param {number} s - The scalar to use.
-     * @returns {Range}
-     */
-    scale(s) {
-      this.min *= s;
-      this.max *= s;
-
-      return this;
-    }
-
-    /**
-     * Expands this range by a given delta.
-     * The delta is subtracted from this.min, and added to this.max.
-     *
-     * @param {Number} d - The delta to expand this range by.
-     * @returns {Range}
-     */
-    expand(d) {
-      this.min -= d;
-      this.max += d;
-
-      return this;
-    }
-
-    /**
-     * Contracts this range by a given delta.
-     * The delta is added to this.min, and subtracted from this.max.
-     *
-     * @param {number} d - The delta to contract this range by.
-     * @returns {Range}
-     */
-    contract(d) {
-      this.min += d;
-      this.max -= d;
-
-      return this;
-    }
-
-    /**
-     * Shifts this range by a given delta.
-     * The delta is added to this.min and this.max.
-     *
-     * @param {number} d - The delta to shift this range by.
-     * @returns {Range}
-     */
-    shift(d) {
-      this.min += d;
-      this.max += d;
-
-      return this;
-    }
-
-    /**
-     * Copies another range's min, max, and curve into this one.
-     * The curve is passed by reference.
-     *
-     * @param {Range} range - The range to copy from.
-     * @returns {Range}
-     */
-    copy(range) {
-      this.min = range.min;
-      this.max = range.max;
-      this.curve = range.curve;
-
-      return this;
-    }
-
-    /**
-     * Creates a shallow copy of this range.
-     *
-     * @returns {Range}
-     */
-    clone() {
-      return new Range(this.min, this.max, this.curve);
-    }
-
-    /**
-     * Checks if this range is empty.
-     * A range is empty if its min === max.
-     *
-     * @returns {boolean}
-     */
-    isEmpty() {
-      return this.min === this.max;
-    }
-
-    /**
-     * Sets this range's min and max to 0.
-     *
-     * @returns {Range}
-     */
-    makeEmpty() {
-      this.min = 0;
-      this.max = 0;
-
-      return this;
-    }
-
-    /**
-     * @see ranger.length
-     * @returns {number}
-     */
-    length() {
-      return ranger.length(this.min, this.max);
-    }
-
-    /**
-     * @see ranger.getPosition
-     *
-     * @param {number} x - The value to check.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number}
-     */
-    getPosition(x, curve = this.curve) {
-      return ranger.getPosition(x, this.min, this.max, curve)
-    }
-
-    /**
-     * @see ranger.getValue
-     *
-     * @param {number} x - The position to check. Should be between 0.0 and 1.0.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number}
-     */
-    getValue(x, curve = this.curve) {
-      return ranger.getValue(x, this.min, this.max, curve);
-    }
-
-    /**
-     * @see ranger.map
-     *
-     * @param {number} x - The value to map. Should be contained in sourceRange.
-     * @param {Range} range - The range to map from.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {Number}
-     */
-    map(x, range, curve = this.curve) {
-      return ranger.map(x, range, this, curve);
-    }
-
-    /**
-     * @see ranger.mapFloat
-     *
-     * @param {number} x - The value to map. Should be contained in the source range.
-     * @param {number} min - Min value for the source range.
-     * @param {number} max - Max value for the source range.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number}
-     */
-    mapFloat(x, min, max, curve = this.curve) {
-      return ranger.mapFloat(x, min, max, this.min, this.max, curve);
-    }
-
-    /**
-     * @see ranger.random
-     *
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number}
-     */
-    random(curve = this.curve) {
-      return ranger.random(this.min, this.max, curve);
-    }
-
-    /**
-     * @see ranger.randomInt
-     *
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number}
-     */
-    randomInt(curve = this.curve) {
-      return ranger.randomInt(this.min, this.max, curve);
-    }
-
-    /**
-     * Creates an array of values spread inside this range.
-     * Values are inclusive, ie values[0] === this.min, and values[values.length - 1] === this.max.
-     *
-     * @param {number} count - Number of values (slices) to create. Should be >= 2.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {number[]}
-     */
-    slice(count, curve = this.curve) {
-      if (count < 2) return [this.min, this.max];
-
-      const values = [];
-
-      for (let i = 0; i < count; i++) {
-        values[i] = this.getValue(i / (count - 1), curve);
+        return this;
       }
 
-      return values;
-    }
+      /**
+       * Sets the min, max, and curve for this range.
+       *
+       * @param {number} min - Min value for this range.
+       * @param {number} max - Max value for this range.
+       * @param {function} [curve] - The curve function to apply by default.
+       * @returns {Range}
+       */
 
-    /**
-     * Divides this range into a number of smaller ranges.
-     * Each range will copy this range's curve.
-     *
-     * todo: add support for margin and padding.
-     *
-     * @param {number} count - The number of sub-ranges to create.
-     * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
-     * @returns {Range[]}
-     */
-    divide(count, curve = this.curve) {
-      if (count <= 1) return [this.clone()];
+    }, {
+      key: 'set',
+      value: function set() {
+        var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.min;
+        var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.max;
+        var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.curve;
 
-      const ranges = [];
+        this.min = min;
+        this.max = max;
+        this.curve = curve;
 
-      for (let i = 0; i < count; i++) {
-        const min = this.getValue(i / count);
-        const max = this.getValue((i + 1) / count);
-
-        ranges[i] = new Range(min, max, this.curve);
+        return this;
       }
 
-      return ranges;
-    }
+      /**
+       * Sets the min value for this range. This method mostly exists for chaining.
+       *
+       * @param {number} min - Min value for this range.
+       * @returns {Range}
+       */
 
-    /**
-     * @see ranger.clamp
-     *
-     * @param {number} x - The value to check.
-     * @returns {number}
-     */
-    clamp(x) {
-      return ranger.clamp(x, this.min, this.max);
-    }
+    }, {
+      key: 'setMin',
+      value: function setMin(min) {
+        this.min = min;
 
-    /**
-     * @see ranger.wrap
-     *
-     * @param {number} x - The value to wrap.
-     * @returns {number}
-     */
-    wrap(x) {
-      return ranger.wrap(x, this.min, this.max);
-    }
+        return this;
+      }
 
-    /**
-     * @see ranger.contains
-     *
-     * @param {number} x - The value to check.
-     * @returns {boolean}
-     */
-    contains(x) {
-      return ranger.contains(x, this.min, this.max);
-    }
+      /**
+       * Sets the max value for this range. This method mostly exists for chaining.
+       *
+       * @param {number} max - Max value for this range.
+       * @returns {Range}
+       */
 
-    /**
-     * @see ranger.containsRange
-     *
-     * @param {Range} range - The range to check.
-     * @returns {boolean}
-     */
-    containsRange(range) {
-      return ranger.containsRange(range, this);
-    }
-  }
+    }, {
+      key: 'setMax',
+      value: function setMax(max) {
+        this.max = max;
+
+        return this;
+      }
+
+      /**
+       * Sets the default curve for this range. This method mostly exists for chaining.
+       *
+       * @param {function} curve - The curve function to apply by default.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'setCurve',
+      value: function setCurve(curve) {
+        this.curve = curve;
+
+        return this;
+      }
+
+      /**
+       * Multiplies this range's min and max with the given scalar.
+       * Values below 1.0 will make the range smaller.
+       * Values over 1.0 will make it bigger.
+       *
+       * @param {number} s - The scalar to use.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'scale',
+      value: function scale(s) {
+        this.min *= s;
+        this.max *= s;
+
+        return this;
+      }
+
+      /**
+       * Expands this range by a given delta.
+       * The delta is subtracted from this.min, and added to this.max.
+       *
+       * @param {Number} d - The delta to expand this range by.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'expand',
+      value: function expand(d) {
+        this.min -= d;
+        this.max += d;
+
+        return this;
+      }
+
+      /**
+       * Contracts this range by a given delta.
+       * The delta is added to this.min, and subtracted from this.max.
+       *
+       * @param {number} d - The delta to contract this range by.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'contract',
+      value: function contract(d) {
+        this.min += d;
+        this.max -= d;
+
+        return this;
+      }
+
+      /**
+       * Shifts this range by a given delta.
+       * The delta is added to this.min and this.max.
+       *
+       * @param {number} d - The delta to shift this range by.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'shift',
+      value: function shift(d) {
+        this.min += d;
+        this.max += d;
+
+        return this;
+      }
+
+      /**
+       * Copies another range's min, max, and curve into this one.
+       * The curve is passed by reference.
+       *
+       * @param {Range} range - The range to copy from.
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'copy',
+      value: function copy(range) {
+        this.min = range.min;
+        this.max = range.max;
+        this.curve = range.curve;
+
+        return this;
+      }
+
+      /**
+       * Creates a shallow copy of this range.
+       *
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'clone',
+      value: function clone() {
+        return new Range(this.min, this.max, this.curve);
+      }
+
+      /**
+       * Checks if this range is empty.
+       * A range is empty if its min === max.
+       *
+       * @returns {boolean}
+       */
+
+    }, {
+      key: 'isEmpty',
+      value: function isEmpty() {
+        return this.min === this.max;
+      }
+
+      /**
+       * Sets this range's min and max to 0.
+       *
+       * @returns {Range}
+       */
+
+    }, {
+      key: 'makeEmpty',
+      value: function makeEmpty() {
+        this.min = 0;
+        this.max = 0;
+
+        return this;
+      }
+
+      /**
+       * @see ranger.length
+       * @returns {number}
+       */
+
+    }, {
+      key: 'length',
+      value: function length() {
+        return ranger.length(this.min, this.max);
+      }
+
+      /**
+       * @see ranger.getPosition
+       *
+       * @param {number} x - The value to check.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'getPosition',
+      value: function getPosition(x) {
+        var curve = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.curve;
+
+        return ranger.getPosition(x, this.min, this.max, curve);
+      }
+
+      /**
+       * @see ranger.getValue
+       *
+       * @param {number} x - The position to check. Should be between 0.0 and 1.0.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'getValue',
+      value: function getValue(x) {
+        var curve = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.curve;
+
+        return ranger.getValue(x, this.min, this.max, curve);
+      }
+
+      /**
+       * @see ranger.map
+       *
+       * @param {number} x - The value to map. Should be contained in sourceRange.
+       * @param {Range} range - The range to map from.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {Number}
+       */
+
+    }, {
+      key: 'map',
+      value: function map(x, range) {
+        var curve = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.curve;
+
+        return ranger.map(x, range, this, curve);
+      }
+
+      /**
+       * @see ranger.mapFloat
+       *
+       * @param {number} x - The value to map. Should be contained in the source range.
+       * @param {number} min - Min value for the source range.
+       * @param {number} max - Max value for the source range.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'mapFloat',
+      value: function mapFloat(x, min, max) {
+        var curve = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.curve;
+
+        return ranger.mapFloat(x, min, max, this.min, this.max, curve);
+      }
+
+      /**
+       * @see ranger.random
+       *
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'random',
+      value: function random() {
+        var curve = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.curve;
+
+        return ranger.random(this.min, this.max, curve);
+      }
+
+      /**
+       * @see ranger.randomInt
+       *
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'randomInt',
+      value: function randomInt() {
+        var curve = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.curve;
+
+        return ranger.randomInt(this.min, this.max, curve);
+      }
+
+      /**
+       * Creates an array of values spread inside this range.
+       * Values are inclusive, ie values[0] === this.min, and values[values.length - 1] === this.max.
+       *
+       * @param {number} count - Number of values (slices) to create. Should be >= 2.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {number[]}
+       */
+
+    }, {
+      key: 'slice',
+      value: function slice(count) {
+        var curve = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.curve;
+
+        if (count < 2) return [this.min, this.max];
+
+        var values = [];
+
+        for (var i = 0; i < count; i++) {
+          values[i] = this.getValue(i / (count - 1), curve);
+        }
+
+        return values;
+      }
+
+      /**
+       * Divides this range into a number of smaller ranges.
+       * Each range will copy this range's curve.
+       *
+       * todo: add support for margin and padding.
+       *
+       * @param {number} count - The number of sub-ranges to create.
+       * @param {function} [curve] - The curve function to apply. Overrides the default set for this range.
+       * @returns {Range[]}
+       */
+
+    }, {
+      key: 'divide',
+      value: function divide(count) {
+        var curve = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.curve;
+
+        if (count <= 1) return [this.clone()];
+
+        var ranges = [];
+
+        for (var i = 0; i < count; i++) {
+          var min = this.getValue(i / count);
+          var max = this.getValue((i + 1) / count);
+
+          ranges[i] = new Range(min, max, this.curve);
+        }
+
+        return ranges;
+      }
+
+      /**
+       * @see ranger.clamp
+       *
+       * @param {number} x - The value to check.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'clamp',
+      value: function clamp(x) {
+        return ranger.clamp(x, this.min, this.max);
+      }
+
+      /**
+       * @see ranger.wrap
+       *
+       * @param {number} x - The value to wrap.
+       * @returns {number}
+       */
+
+    }, {
+      key: 'wrap',
+      value: function wrap(x) {
+        return ranger.wrap(x, this.min, this.max);
+      }
+
+      /**
+       * @see ranger.contains
+       *
+       * @param {number} x - The value to check.
+       * @returns {boolean}
+       */
+
+    }, {
+      key: 'contains',
+      value: function contains(x) {
+        return ranger.contains(x, this.min, this.max);
+      }
+
+      /**
+       * @see ranger.containsRange
+       *
+       * @param {Range} range - The range to check.
+       * @returns {boolean}
+       */
+
+    }, {
+      key: 'containsRange',
+      value: function containsRange(range) {
+        return ranger.containsRange(range, this);
+      }
+    }]);
+
+    return Range;
+  }();
 
   ranger.Range = Range;
 

@@ -1,6 +1,12 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import babel from 'rollup-plugin-babel';
+import babelrc from 'babelrc-rollup';
 import pkg from './package.json';
+
+const babelConfig = {
+  'presets': [
+    ['env']
+  ]
+};
 
 export default [
 	{
@@ -10,10 +16,13 @@ export default [
 			file: pkg.browser,
 			format: 'umd'
 		},
-		plugins: [
-			resolve(),
-			commonjs()
-		]
+    plugins: [
+      babel(babelrc({
+        addExternalHelpersPlugin: false,
+        config: babelConfig,
+        exclude: 'node_modules/**'
+      }))
+    ],
 	},
 	{
     input: 'src/main.cjs.js',
